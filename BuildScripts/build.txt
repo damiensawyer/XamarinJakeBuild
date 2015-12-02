@@ -1,0 +1,312 @@
+XBuild Engine Version 12.0
+Mono, Version 4.2.1.0
+Copyright (C) 2005-2013 Various Mono authors
+
+Build started 2/12/2015 4:49:34 PM.
+__________________________________________________
+/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild/XamarinJakeBuild.shproj:  warning : Could not find project file /Library/Frameworks/Mono.framework/External/xbuild/Microsoft/VisualStudio/v/CodeSharing/Microsoft.CodeSharing.Common.Default.props, to import. Ignoring.
+/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild/XamarinJakeBuild.shproj:  warning : Could not find project file /Library/Frameworks/Mono.framework/External/xbuild/Microsoft/VisualStudio/v/CodeSharing/Microsoft.CodeSharing.Common.props, to import. Ignoring.
+/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild/XamarinJakeBuild.shproj:  warning : Could not find project file /Library/Frameworks/Mono.framework/External/xbuild/Microsoft/VisualStudio/v/CodeSharing/Microsoft.CodeSharing.CSharp.targets, to import. Ignoring.
+Project "/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln" (default target(s)):
+	Target ValidateSolutionConfiguration:
+		Building solution configuration "Release|iPhone".
+	Target Build:
+		Project "/Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/XamarinJakeBuild.iOS.csproj" (default target(s)):
+			Target PrepareForBuild:
+				Configuration: Release Platform: iPhone
+			Target _DetectAppManifest:
+				FindItemWithLogicalName Task
+				  Items:
+				    Info.plist
+				    Entitlements.plist
+				  LogicalName: Info.plist
+				  ProjectDir: /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS
+				  ResourcePrefix: Resources
+			Target _DetectSdkLocations:
+				DetectSdkLocations Task
+				  TargetFrameworkIdentifier: Xamarin.iOS
+				  TargetArchitectures: ARMv7, ARM64
+				  SdkVersion: 9.1
+				  XamarinSdkRoot: /Library/Frameworks/Xamarin.iOS.framework/Versions/Current
+				  SdkRoot: /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk
+				  SdkDevPath: /Applications/Xcode.app/Contents/Developer
+				  SdkUsrPath: /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr
+				  SdkPlatform: iPhoneOS
+				  SdkIsSimulator: False
+			Target _CoreCompileInterfaceDefinitions:
+				IBTool Task
+				  AppManifest: Info.plist
+				  InterfaceDefinitions:
+				    Resources/LaunchScreen.xib
+				    Main.storyboard
+				  IntermediateOutputPath: obj/iPhone/Release/
+				  IsWatchApp: False
+				  IsWatch2App: False
+				  ProjectDir: /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS
+				  ResourcePrefix: Resources
+				  SdkBinPath: /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin
+				  SdkPlatform: iPhoneOS
+				  SdkRoot: /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk
+				  SdkVersion: 9.1
+				  BundleResources Output:
+				    obj/iPhone/Release/ibtool/LaunchScreen.nib
+				    obj/iPhone/Release/ibtool/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib
+				    obj/iPhone/Release/ibtool/Main.storyboardc/Info.plist
+				    obj/iPhone/Release/ibtool/Main.storyboardc/UIViewController-BYZ-38-t0r.nib
+				  OutputManifests Output:
+				    obj/iPhone/Release/ibtool-manifests/LaunchScreen.nib
+				    obj/iPhone/Release/ibtool-manifests/Main.storyboardc
+			Target _CoreCompileImageAssets:
+				ACTool Task
+				  AppManifest: Info.plist
+				  DeviceModel: <null>
+				  DeviceOSVersion: <null>
+				  ImageAssets:
+				    Resources/Images.xcassets/AppIcons.appiconset/Contents.json
+				  IntermediateOutputPath: obj/iPhone/Release/
+				  OptimizePNGs: True
+				  OutputPath: bin/iPhone/Release/
+				  ProjectDir: /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS
+				  ResourcePrefix: Resources
+				  SdkBinPath: /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin
+				  SdkPlatform: iPhoneOS
+				  SdkVersion: 9.1
+Resources/Images.xcassets: actool warning : The app icon set "AppIcons" has an unassigned child.
+			Target _CollectColladaAssets:
+				CollectBundleResources Task
+				  BundleResources: <null>
+				  OptimizePropertyLists: False
+				  OptimizePNGs: False
+				  ProjectDir: /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS
+				  ResourcePrefix: Resources
+			Target _CoreCompileColladaAssets:
+			No input files were specified for target _CoreCompileColladaAssets, skipping.
+			Target _CoreCompileSceneKitAssets:
+				CompileSceneKitAssets Task
+				  IntermediateOutputPath: obj/iPhone/Release/
+				  ProjectDir: /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS
+				  ResourcePrefix: Resources
+				  SceneKitAssets:
+				  SdkDevPath: /Applications/Xcode.app/Contents/Developer
+				  SdkRoot: /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk
+				  SdkVersion: 9.1
+			Target _CoreCompileTextureAtlases:
+				TextureAtlas Task
+				  AtlasTextures: <null>
+				  IntermediateOutputPath: obj/iPhone/Release/
+				  ProjectDir: /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS
+				  ResourcePrefix: Resources
+				  SdkBinPath: /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin
+				  SdkDevPath: /Applications/Xcode.app/Contents/Developer
+				  SdkUsrPath: /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr
+			Target _CollectBundleResources:
+				CollectBundleResources Task
+				  BundleResources:
+				  OptimizePropertyLists: True
+				  OptimizePNGs: True
+				  ProjectDir: /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS
+				  ResourcePrefix: Resources
+			Target _CoreOptimizePngImages:
+			No output files were specified for target _CoreOptimizePngImages, skipping.
+			Target _CoreOptimizePropertyLists:
+			No input files were specified for target _CoreOptimizePropertyLists, skipping.
+			Target _CoreOptimizeLocalizationFiles:
+			No input files were specified for target _CoreOptimizeLocalizationFiles, skipping.
+			Target _UnpackLibraryResources:
+				UnpackLibraryResources Task
+				  Prefix: monotouch
+				  IntermediateOutputPath: obj/iPhone/Release/
+				  NoOverwrite:
+				    obj/iPhone/Release/ibtool/LaunchScreen.nib
+				    obj/iPhone/Release/ibtool/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib
+				    obj/iPhone/Release/ibtool/Main.storyboardc/Info.plist
+				    obj/iPhone/Release/ibtool/Main.storyboardc/UIViewController-BYZ-38-t0r.nib
+				  ReferencedLibraries:
+				    /Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.dll
+				    /Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.Xml.dll
+				    /Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/Xamarin.iOS.dll
+				    /Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.Core.dll
+				    /Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/mscorlib.dll
+			Target GenerateSatelliteAssemblies:
+			No input files were specified for target GenerateSatelliteAssemblies, skipping.
+			Target GenerateTargetFrameworkMonikerAttribute:
+			Skipping target "GenerateTargetFrameworkMonikerAttribute" because its outputs are up-to-date.
+			Target CoreCompile:
+			Skipping target "CoreCompile" because its outputs are up-to-date.
+			Target _DetectSigningIdentity:
+				DetectSigningIdentity Task
+				  AppBundleName: XamarinJakeBuild.iOS
+				  AppManifest: Info.plist
+				  RequireCodesigning: True
+				  SdkPlatform: iPhoneOS
+				  SdkIsSimulator: False
+				  ProvisioningProfile: acd7927b-e072-47c9-8c48-8873f9a0d055
+				  SigningKey: iPhone Distribution
+				Detected signing identity:
+				  Code Signing Key: "iPhone Distribution: DNS Technology Pty Ltd (6LYE7VFFTQ)" (3B7C8BCBF6D1303565941466862425598565E90E)
+				  Provisioning Profile: "XamarinJakeBuildTestDistribution" (acd7927b-e072-47c9-8c48-8873f9a0d055)
+				  Bundle Id: com.sample.xamarinjakebuild
+				  App Id: 6LYE7VFFTQ.com.sample.xamarinjakebuild
+			Target _ComputeBundleResourceOutputPaths:
+				ComputeBundleResourceOutputPaths Task
+				  AppBundleDir: bin/iPhone/Release/XamarinJakeBuild.iOS.app
+				  BundleIdentifier: com.sample.xamarinjakebuild
+				  BundleResources:
+				    obj/iPhone/Release/ibtool/LaunchScreen.nib
+				    obj/iPhone/Release/ibtool/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib
+				    obj/iPhone/Release/ibtool/Main.storyboardc/Info.plist
+				    obj/iPhone/Release/ibtool/Main.storyboardc/UIViewController-BYZ-38-t0r.nib
+				  IntermediateOutputPath: obj/iPhone/Release/
+				  OutputPath: bin/iPhone/Release/
+			Target _CopyResourcesToBundle:
+			Skipping target "_CopyResourcesToBundle" because its outputs are up-to-date.
+			Target _CreateAssetPackManifest:
+				CreateAssetPackManifest Task
+				  AppBundleDir: bin/iPhone/Release/XamarinJakeBuild.iOS.app
+				  InitialInstallTags: <null>
+				  OutputPath: bin/iPhone/Release/
+				  PrefetchOrder: <null>
+			Target _CompileEntitlements:
+				CompileEntitlements Task
+				  AppBundleDir: bin/iPhone/Release/XamarinJakeBuild.iOS.app
+				  AppIdentifier: 6LYE7VFFTQ.com.sample.xamarinjakebuild
+				  BundleIdentifier: com.sample.xamarinjakebuild
+				  CompiledEntitlements: obj/iPhone/Release/Entitlements.xcent
+				  Entitlements: Entitlements.plist
+				  IsAppExtension: False
+				  ProvisioningProfile: acd7927b-e072-47c9-8c48-8873f9a0d055
+				  SdkVersion: 9.1
+			Target _CompileAppManifest:
+			Skipping target "_CompileAppManifest" because its outputs are up-to-date.
+			Target _GetNativeExecutableName:
+				GetNativeExecutableName Task
+				  AppManifest: bin/iPhone/Release/XamarinJakeBuild.iOS.app/Info.plist
+			Target _CompileToNative:
+			Skipping target "_CompileToNative" because its outputs are up-to-date.
+			Target _CompileITunesMetadata:
+			Skipping target "_CompileITunesMetadata" because its outputs are up-to-date.
+			Target _CollectITunesArtwork:
+				CollectITunesArtwork Task
+				  ITunesArtwork: <null>
+			Target _CopyITunesArtwork:
+			No input files were specified for target _CopyITunesArtwork, skipping.
+			Target _CreatePkgInfo:
+				CreatePkgInfo Task
+				  OutputPath: bin/iPhone/Release/XamarinJakeBuild.iOS.app/PkgInfo
+			Target _ParseExtraMtouchArgs:
+				ParseExtraMtouchArgs Task
+				  ExtraArgs: <null>
+				  NoSymbolStrip: False
+				  NoDSymUtil: <null>
+				  NoSymbolStrip Output: False
+				  NoDSymUtil Output: false
+			Target _CollectFrameworks:
+				CollectFrameworks Task
+				  AppBundlePath: bin/iPhone/Release/XamarinJakeBuild.iOS.app/
+				No Frameworks directory found.
+			Target _GenerateFrameworkDebugSymbols:
+			No input files were specified for target _GenerateFrameworkDebugSymbols, skipping.
+			Target _GenerateDebugSymbols:
+			Skipping target "_GenerateDebugSymbols" because its outputs are up-to-date.
+			Target _ValidateAppBundle:
+				ValidateAppBundle Task
+				  AppBundlePath: /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/bin/iPhone/Release/XamarinJakeBuild.iOS.app/
+				  SdkIsSimulator: False
+				  TargetFrameworkIdentifier: Xamarin.iOS
+			Target _EmbedMobileProvision:
+				EmbedMobileProvision Task
+				  AppBundleDir: bin/iPhone/Release/XamarinJakeBuild.iOS.app
+				  ProvisioningProfile: acd7927b-e072-47c9-8c48-8873f9a0d055
+			Target _CodesignAppBundle:
+				Codesign Task
+				  CodesignAllocate: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate
+				  Entitlements: obj/iPhone/Release/Entitlements.xcent
+				  Resource: bin/iPhone/Release/XamarinJakeBuild.iOS.app
+				  ResourceRules: <null>
+				  SigningKey: 3B7C8BCBF6D1303565941466862425598565E90E
+				  ExtraArgs: <null>
+				Tool /usr/bin/codesign execution started with arguments: -v --force --sign 3B7C8BCBF6D1303565941466862425598565E90E --entitlements /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/obj/iPhone/Release/Entitlements.xcent /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/bin/iPhone/Release/XamarinJakeBuild.iOS.app 
+				/Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/bin/iPhone/Release/XamarinJakeBuild.iOS.app: replacing existing signature
+				/Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/bin/iPhone/Release/XamarinJakeBuild.iOS.app: signed bundle with Mach-O universal (armv7 arm64) [com.sample.xamarinjakebuild]
+			Target _CodesignVerify:
+				CodesignVerify Task
+				  CodesignAllocate: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate
+				  Resource: bin/iPhone/Release/XamarinJakeBuild.iOS.app
+				Tool /usr/bin/codesign execution started with arguments: --verify -vvvv -R='anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.1] exists and (certificate leaf[field.1.2.840.113635.100.6.1.2] exists or certificate leaf[field.1.2.840.113635.100.6.1.4] exists)' bin/iPhone/Release/XamarinJakeBuild.iOS.app 
+				bin/iPhone/Release/XamarinJakeBuild.iOS.app: valid on disk
+				bin/iPhone/Release/XamarinJakeBuild.iOS.app: satisfies its Designated Requirement
+				bin/iPhone/Release/XamarinJakeBuild.iOS.app: explicit requirement satisfied
+			Target _CoreCreateIpa:
+				Created directory "obj/iPhone/Release/ipa/Payload"
+				Ditto Task
+				  Source: bin/iPhone/Release/XamarinJakeBuild.iOS.app
+				  Destination: obj/iPhone/Release/ipa/Payload/XamarinJakeBuild.iOS.app
+				Tool /usr/bin/ditto execution started with arguments: -rsrc bin/iPhone/Release/XamarinJakeBuild.iOS.app obj/iPhone/Release/ipa/Payload/XamarinJakeBuild.iOS.app 
+				CollectITunesSourceFiles Task
+				  OutputPath: bin/iPhone/Release/
+				  ITunesSourceFiles:
+				    bin/iPhone/Release/iTunesMetadata.plist
+				Copying file from '/Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/bin/iPhone/Release/iTunesMetadata.plist' to '/Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/obj/iPhone/Release/ipa/iTunesMetadata.plist'
+				Deleting file '/Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/bin/iPhone/Release/XamarinJakeBuild.iOS-1.0.ipa'
+				Zip Task
+				  OutputFile: bin/iPhone/Release/XamarinJakeBuild.iOS-1.0.ipa
+				  Recursive: True
+				  Sources:
+				    obj/iPhone/Release/ipa/Payload
+				    obj/iPhone/Release/ipa/iTunesMetadata.plist
+				  Symlinks: True
+				  WorkingDirectory: obj/iPhone/Release/ipa
+				Tool /usr/bin/zip execution started with arguments: -r -y /Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/bin/iPhone/Release/XamarinJakeBuild.iOS-1.0.ipa Payload iTunesMetadata.plist 
+				  adding: Payload/ (stored 0%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/ (stored 0%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/.monotouch-32/ (stored 0%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/.monotouch-32/mscorlib.dll (deflated 73%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/.monotouch-32/Xamarin.iOS.dll (deflated 69%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/.monotouch-32/XamarinJakeBuild.iOS.exe (stored 0%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/.monotouch-64/ (stored 0%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/.monotouch-64/mscorlib.dll (deflated 73%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/.monotouch-64/Xamarin.iOS.dll (deflated 69%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/.monotouch-64/XamarinJakeBuild.iOS.exe (deflated 58%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/_CodeSignature/ (stored 0%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/_CodeSignature/CodeResources (deflated 76%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/archived-expanded-entitlements.xcent (deflated 16%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/embedded.mobileprovision (deflated 32%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/Info.plist (deflated 36%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/LaunchScreen.nib (deflated 43%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/Main.storyboardc/ (stored 0%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib (deflated 42%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/Main.storyboardc/Info.plist (deflated 42%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/Main.storyboardc/UIViewController-BYZ-38-t0r.nib (deflated 35%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/NOTICE (deflated 23%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/PkgInfo (stored 0%)
+				  adding: Payload/XamarinJakeBuild.iOS.app/XamarinJakeBuild.iOS (deflated 65%)
+				  adding: iTunesMetadata.plist (deflated 43%)
+		Done building project "/Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/XamarinJakeBuild.iOS.csproj".
+		The project 'XamarinJakeBuild.Droid' is disabled for solution configuration 'Release|iPhone'.
+/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln:  warning : The project configuration for project 'XamarinJakeBuild' corresponding to the solution configuration 'Release|iPhone' was not found.
+Done building project "/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln".
+
+Build succeeded.
+
+Warnings:
+
+/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild/XamarinJakeBuild.shproj:  warning : Could not find project file /Library/Frameworks/Mono.framework/External/xbuild/Microsoft/VisualStudio/v/CodeSharing/Microsoft.CodeSharing.Common.Default.props, to import. Ignoring.
+/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild/XamarinJakeBuild.shproj:  warning : Could not find project file /Library/Frameworks/Mono.framework/External/xbuild/Microsoft/VisualStudio/v/CodeSharing/Microsoft.CodeSharing.Common.props, to import. Ignoring.
+/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild/XamarinJakeBuild.shproj:  warning : Could not find project file /Library/Frameworks/Mono.framework/External/xbuild/Microsoft/VisualStudio/v/CodeSharing/Microsoft.CodeSharing.CSharp.targets, to import. Ignoring.
+
+/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln (default targets) ->
+(Build target) ->
+/Users/damiensawyer/code/DNS/XamarinJakeBuild/iOS/XamarinJakeBuild.iOS.csproj (default targets) ->
+/Library/Frameworks/Mono.framework/External/xbuild/Xamarin/iOS/Xamarin.iOS.Common.targets (_CoreCompileImageAssets target) ->
+
+	Resources/Images.xcassets: actool warning : The app icon set "AppIcons" has an unassigned child.
+
+/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln (default targets) ->
+(Build target) ->
+
+	/Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln:  warning : The project configuration for project 'XamarinJakeBuild' corresponding to the solution configuration 'Release|iPhone' was not found.
+
+	 5 Warning(s)
+	 0 Error(s)
+
+Time Elapsed 00:00:01.7928720

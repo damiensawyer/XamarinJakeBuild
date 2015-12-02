@@ -7,22 +7,34 @@
 */
 
 util = require('util');
-
+var child_process = require('child_process');
 desc('Build All');
 task('default', [], function (params) {
   jake.Task['ibs_android'].invoke();
   jake.Task['ibs_iphone'].invoke();
 });
 
+// It was a PITA getting Jake to run syncronously. This seems to have done it.
+process.shellSync = function(cmd){
+    var r = child_process.execSync(cmd);
+    process.stdout.write(r);
+}
+
 desc('Any prerequisites for preparation');
 task('prepare', [], function (params) {
   console.log('preparing....');
   var result = {};
   result.mono = '/usr/bin/mono';
-  result.mdtool = '/Applications/Xamarin\\ Studio.app/Contents/MacOS/mdtool build';
-  result.xCodeArchive = '/Users/damiensawyer/Library/Developer/Xcode/Archives/'
+  result.xbuild = '/Library/Frameworks/Mono.framework/Commands/xbuild';
+  
+  result.iPhoneProjectBuildPath = '~/code/DNS/XamarinJakeBuild/iOS/bin/iPhone/Release/';
+  result.iPhoneProject = '~/code/DNS/XamarinJakeBuild/iOS/XamarinJakeBuild.iOS.csproj';
+  result.outputPath = '~/jakeBuildOutput'; 
   return result;
+  //result.mdtool = '/Applications/Xamarin\\ Studio.app/Contents/MacOS/mdtool build';
+
   //complete(result);  // only call complete if async
+  
 });
 
 desc('Delete Files From Previous Builds');
@@ -31,8 +43,9 @@ task('delete_old', ['prepare'], function (params) {
   config = jake.Task["prepare"].value;
   // Note -- all of these are run async
   var cmds = [
-    'rm -rf /Users/damiensawyer/temp/jake',
-    'rm -rf ' + config.xCodeArchive + '*' 
+    //'rm -rf /Users/damiensawyer/temp/jake',
+    //'rm -rf ' + config.xCodeArchive + '*',
+    'rm -rf ' + config.outputPath 
   ];
 
  jake.exec(cmds);
@@ -43,12 +56,8 @@ task('create_new', ['delete_old'], function (params) {
   console.log('create new');
   // Note -- all of these are run async... so, if you want them sequential, join with ;
   /// This task isn't really needed - but serves as a demo of running shell commands in sequence.
-  var cmds = [
-    //'mkdir /Users/damiensawyer/temp/jake;' 
-    //+  'mkdir /Users/damiensawyer/temp/jake/damien;'
-     '"/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" build "-c:Release|iPhone" "-p:XamarinJakeBuild.iOS" /Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln'
-   ];
-  jake.exec(cmds,  {printStdout: true, printStderr:true, breakOnError:false});
+  var cmd = 'mkdir ' + config.outputPath;
+  process.shellSync (cmd);
  });
 
 // ////////////////////////////
@@ -64,12 +73,9 @@ task('ibs_iphone', ['create_new'], function (params) {
   var config = jake.Task["prepare"].value;
   console.log('building ibs iphone');
   
-  var cmds = [
-    //'"/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" build "-c:Release|iPhone" "-p:XamarinJakeBuild.iOS" /Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln'
-    'echo ddbuilding.....'
-  ];
-
-  jake.exec(cmds, {printStdout: true, printStderr:true, breakOnError:false});
+  var cmd =  config.xbuild + ' ' + config.iPhoneProject + ' /p:Configuration=Release /p:Platform=iPhone /p:BuildIpa=true';
+  process.shellSync(cmd);
+  process.shellSync('cp ' + config.iPhoneProjectBuildPath + '*.ipa ' + config.outputPath);
   
   
 }, {async:false});
@@ -91,6 +97,14 @@ task('ibs_iphone', ['create_new'], function (params) {
 // });
 
 
+//Library/Frameworks/Mono.framework/Commands/xbuild YourSolution.sln /p:Configuration=Ad-Hoc /p:Platform=iPhone /p:BuildIpa=true
 
 
+// ipa notes https://developer.xamarin.com/guides/ios/deployment,_testing,_and_metrics/app_distribution/ipa_support/
 
+
+///Library/Frameworks/Mono.framework/Commands/xbuild ~/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln /p:Configuration=Release /p:Platform=iPhone /p:BuildIpa=true
+//Library/Frameworks/Mono.framework/Commands/xbuild ~/code/DNS/XamarinJakeBuild/iOS/XamarinJakeBuild.iOS.csproj /p:Configuration=Release /p:Platform=iPhone /p:BuildIpa=true 
+
+
+// builds it here bin/iPhone/Release/XamarinJakeBuild.iOS-1.0.ipa
