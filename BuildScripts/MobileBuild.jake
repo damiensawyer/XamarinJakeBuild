@@ -28,7 +28,9 @@ task('prepare', [], function (params) {
   result.xbuild = '/Library/Frameworks/Mono.framework/Commands/xbuild';
   
   result.iPhoneProjectBuildPath = '~/code/DNS/XamarinJakeBuild/iOS/bin/iPhone/Release/';
+  result.droidProjectBuildPath = '~/code/DNS/XamarinJakeBuild/Droid/bin/Release/';
   result.iPhoneProject = '~/code/DNS/XamarinJakeBuild/iOS/XamarinJakeBuild.iOS.csproj';
+  result.droidProject = '~/code/DNS/XamarinJakeBuild/Droid/XamarinJakeBuild.Droid.csproj';
   result.outputPath = '~/jakeBuildOutput'; 
   return result;
   //result.mdtool = '/Applications/Xamarin\\ Studio.app/Contents/MacOS/mdtool build';
@@ -48,7 +50,7 @@ task('delete_old', ['prepare'], function (params) {
     'rm -rf ' + config.outputPath 
   ];
 
- jake.exec(cmds);
+  process.shellSync(cmds);
 });
 
 desc('Create new folders');
@@ -60,12 +62,15 @@ task('create_new', ['delete_old'], function (params) {
   process.shellSync (cmd);
  });
 
-// ////////////////////////////
-// desc('Build IBS Android');
-// task('ibs_android', ['prepare'], function (params) {
-//   config = jake.Task["prepare"].value;
-//   console.log('build ibs android', config );
-// });
+////////////////////////////
+desc('Build IBS Android');
+task('ibs_android', ['create_new'], function (params) {
+  config = jake.Task["prepare"].value;
+  var cmd =  config.xbuild + ' ' + config.droidProject + ' /p:Configuration=Release /p:Platform=AnyCPU /t:PackageForAndroid';
+  console.log('build ibs android', config, cmd );
+  process.shellSync(cmd);
+   process.shellSync('cp ' + config.droidProjectBuildPath + '*.apk ' + config.outputPath);
+});
 
 
 desc('Build IBS IPhone');
