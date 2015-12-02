@@ -18,6 +18,7 @@ task('prepare', [], function (params) {
   var result = {};
   result.mono = '/usr/bin/mono';
   result.mdtool = '/Applications/Xamarin\\ Studio.app/Contents/MacOS/mdtool build';
+  result.xCodeArchive = '/Users/damiensawyer/Library/Developer/Xcode/Archives/'
   complete(result);
 });
 
@@ -31,11 +32,27 @@ task('ibs_android', ['prepare'], function (params) {
 ////////////////////////////
 desc('Build IBS IPhone');
 task('ibs_iphone', ['prepare'], function (params) {
-  config = jake.Task["prepare"].value;
-  console.log('build ibs iphone', config);
+  var config = jake.Task["prepare"].value;
+  console.log('building ibs iphone');
+  
+  var cmds = [
+    'echo abc', 
+    'echo 123',
+    '"/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" build "-c:Release|iPhone" "-p:XamarinJakeBuild.iOS" /Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln'
+    //'rm -rf ' + config.xCodeArchive + '*' 
+  ];
+  console.log(cmds);
+  jake.exec(cmds, {printStdout: true, printStderr:true, breakOnError:false}, function () {
+    console.log('All tests passed.');
+    complete();
+  });
+  
+  
 
-//"/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" build '-c:Debug|iPhoneSimulator' ~/Code/DNS/BodyshopWindows/BodyshopWindows.sln
-"/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" archive '-c:Release iPhone iBodyshop|iPhone' ~/Code/DNS/BodyshopWindows/BodyshopWindows.sln
+// "/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" archive '-c:Release|iPhone' '-p:XamarinJakeBuild.iOS' /Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln
+
+// "/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" build '-c:Release|iPhone' '-p:XamarinJakeBuild.iOS' /Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln 
+
 
 
 });
@@ -45,3 +62,10 @@ jake.addListener('complete', function () {
   console.log('_____finished_____')
   process.exit();
 });
+
+
+
+//"/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" archive '-c:Release|iPhone' ~/Code/DNS/BodyshopWindows/BodyshopWindows.sln
+
+
+
