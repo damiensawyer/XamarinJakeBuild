@@ -1,9 +1,12 @@
 // call with jake -f ibs.jake default[cat,car,boat]
 // this will display the tasks jake -f ibs.jake -T
+// 
+
+/*
+  Notes on Jake - "Tasks should execute serially, but shell commands within a task should be run in parallel." --  https://srackham.wordpress.com/2014/08/23/switching-from-grunt-to-jake/
+*/
 
 util = require('util');
-
-
 
 desc('Build All');
 task('default', [], function (params) {
@@ -11,7 +14,6 @@ task('default', [], function (params) {
   jake.Task['ibs_iphone'].invoke();
 });
 
-////////////////////////////
 desc('Any prerequisites for preparation');
 task('prepare', [], function (params) {
   console.log('preparing....');
@@ -19,9 +21,9 @@ task('prepare', [], function (params) {
   result.mono = '/usr/bin/mono';
   result.mdtool = '/Applications/Xamarin\\ Studio.app/Contents/MacOS/mdtool build';
   result.xCodeArchive = '/Users/damiensawyer/Library/Developer/Xcode/Archives/'
-  complete(result);
+  return result;
+  //complete(result);  // only call complete if async
 });
-
 
 desc('Delete Files From Previous Builds');
 task('delete_old', ['prepare'], function (params) {
@@ -31,29 +33,23 @@ task('delete_old', ['prepare'], function (params) {
   var cmds = [
     'rm -rf /Users/damiensawyer/temp/jake',
     'rm -rf ' + config.xCodeArchive + '*' 
-    
   ];
-  jake.exec(cmds, {printStdout: true, printStderr:true, breakOnError:false}, function () {
-    console.log('delete_old complete.');
-    
-  });
-  
-});
 
+ jake.exec(cmds);
+});
 
 desc('Create new folders');
 task('create_new', ['delete_old'], function (params) {
   console.log('create new');
   // Note -- all of these are run async... so, if you want them sequential, join with ;
+  /// This task isn't really needed - but serves as a demo of running shell commands in sequence.
   var cmds = [
-    'mkdir /Users/damiensawyer/temp/jake;' +  'mkdir /Users/damiensawyer/temp/jake/damien'
-  ];
-  jake.exec(cmds, {printStdout: true, printStderr:true, breakOnError:false}, function () {
-    console.log('create new complete.');
-    
-  });
-  complete();
-});
+    //'mkdir /Users/damiensawyer/temp/jake;' 
+    //+  'mkdir /Users/damiensawyer/temp/jake/damien;'
+     '"/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" build "-c:Release|iPhone" "-p:XamarinJakeBuild.iOS" /Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln'
+   ];
+  jake.exec(cmds,  {printStdout: true, printStderr:true, breakOnError:false});
+ });
 
 // ////////////////////////////
 // desc('Build IBS Android');
@@ -63,23 +59,20 @@ task('create_new', ['delete_old'], function (params) {
 // });
 
 
-// desc('Build IBS IPhone');
-// task('ibs_iphone', ['prepare'], function (params) {
-//   var config = jake.Task["prepare"].value;
-//   console.log('building ibs iphone');
+desc('Build IBS IPhone');
+task('ibs_iphone', ['create_new'], function (params) {
+  var config = jake.Task["prepare"].value;
+  console.log('building ibs iphone');
   
-//   var cmds = [
-//     'echo abc', 
-//     'echo 123',
-//     'rm -rf ' + config.xCodeArchive + '*', 
-//     '"/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" build "-c:Release|iPhone" "-p:XamarinJakeBuild.iOS" /Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln'
-    
-//   ];
-//   console.log(cmds);
-//   jake.exec(cmds, {printStdout: true, printStderr:true, breakOnError:false}, function () {
-//     console.log('All tests passed.');
-//     complete();
-//   }, {async:false});
+  var cmds = [
+    //'"/Applications/Xamarin Studio.app/Contents/MacOS/mdtool" build "-c:Release|iPhone" "-p:XamarinJakeBuild.iOS" /Users/damiensawyer/code/DNS/XamarinJakeBuild/XamarinJakeBuild.sln'
+    'echo ddbuilding.....'
+  ];
+
+  jake.exec(cmds, {printStdout: true, printStderr:true, breakOnError:false});
+  
+  
+}, {async:false});
   
   
 
@@ -91,16 +84,13 @@ task('create_new', ['delete_old'], function (params) {
 
 // });
 
-//////////////////////////
-jake.addListener('complete', function () {
-  console.log('_____finished_____')
-  process.exit();
-});
+// //////////////////////////
+// jake.addListener('complete', function () {
+//   console.log('_____finished_____')
+//   process.exit();
+// });
 
 
-
-// Notes on Jake
- // - "Tasks should execute serially, but shell commands within a task should be run in parallel." --  https://srackham.wordpress.com/2014/08/23/switching-from-grunt-to-jake/
 
 
 
