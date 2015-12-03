@@ -26,12 +26,17 @@ task('prepare', [], function (params) {
   var result = {};
   result.mono = '/usr/bin/mono';
   result.xbuild = '/Library/Frameworks/Mono.framework/Commands/xbuild';
-  
   result.iPhoneProjectBuildPath = '~/code/DNS/XamarinJakeBuild/iOS/bin/iPhone/Release/';
-  result.droidProjectBuildPath = '~/code/DNS/XamarinJakeBuild/Droid/bin/Release/';
   result.iPhoneProject = '~/code/DNS/XamarinJakeBuild/iOS/XamarinJakeBuild.iOS.csproj';
+    
   result.droidProject = '~/code/DNS/XamarinJakeBuild/Droid/XamarinJakeBuild.Droid.csproj';
-  result.outputPath = '~/jakeBuildOutput'; 
+  result.droidProjectBuildPath = '~/code/DNS/XamarinJakeBuild/Droid/bin/Release/';
+  result.droidKeystore = '~/keystore/debug.keystore';
+  result.droidKeystoreStorePass = 'mysecret123'; // to do: pass this as argument
+  result.droidKeyname = 'android';
+  result.outputPath = '~/jakeBuildOutput/'; 
+  result.apkPresigned = 'com.sample.xamarinjakebuild.apk';
+  result.apkPostsigned = 'xamarinjakebuild.apk';
   return result;
   //result.mdtool = '/Applications/Xamarin\\ Studio.app/Contents/MacOS/mdtool build';
 
@@ -43,14 +48,8 @@ desc('Delete Files From Previous Builds');
 task('delete_old', ['prepare'], function (params) {
   console.log('delete old');
   config = jake.Task["prepare"].value;
-  // Note -- all of these are run async
-  var cmds = [
-    //'rm -rf /Users/damiensawyer/temp/jake',
-    //'rm -rf ' + config.xCodeArchive + '*',
-    'rm -rf ' + config.outputPath 
-  ];
-
-  process.shellSync(cmds);
+  process.shellSync('rm -rf ' + config.outputPath);
+  process.shellSync('rm -rf ' + config.droidProjectBuildPath);
 });
 
 desc('Create new folders');
@@ -67,9 +66,30 @@ desc('Build IBS Android');
 task('ibs_android', ['create_new'], function (params) {
   config = jake.Task["prepare"].value;
   var cmd =  config.xbuild + ' ' + config.droidProject + ' /p:Configuration=Release /p:Platform=AnyCPU /t:PackageForAndroid';
+  // NOTE!!! This might not be signed correctly!  "The APK found in the bin/Release folder has been signed with the debug keystore that is used by Xamarin.Android; therefore, you should not distribute this APK. https://developer.xamarin.com/guides/android/deployment,_testing,_and_metrics/publishing_an_application/part_2_-_signing_the_android_application_package/#signing_legacy" 
   console.log('build ibs android', config, cmd );
   process.shellSync(cmd);
    process.shellSync('cp ' + config.droidProjectBuildPath + '*.apk ' + config.outputPath);
+});
+
+desc('Sign apk and install on phone');
+task('deploy_android', ['create_new', 'ibs_android'], function (params) {
+  config = jake.Task["prepare"].value;
+  // Xamarin notes: https://developer.xamarin.com/guides/android/deployment,_testing,_and_metrics/publishing_an_application/part_2_-_signing_the_android_application_package/#signing_legacy
+  // Android deploy instructions: http://stackoverflow.com/a/20878125/494635
+  //var jarsign = 'jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ' + config.droidKeystore + ' ' + config.outputPath + config.apkPresigned + ' ' + config.droidKeyname;
+  var jarsign = ['jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore', config.droidKeystore, config.outputPath + config.apkPresigned, config.droidKeyname, '-storepass ' + config.droidKeystoreStorePass].join(' ');
+     process.shellSync(jarsign);
+  
+  var za = ['zipalign -f -v 4', config.outputPath + config.apkPresigned, config.outputPath + config.apkPostsigned].join(' ');
+  process.shellSync(za);
+  
+  //process.shellSync()
+  
+  // generate keystore: keytool -genkey -v -keystore debug.keystore -alias android -keyalg RSA -keysize 2048 -validity 20000
+  // list the aliase sin a keystore: keytool -list -keystore debug.keystore 
+  // zipalign (creates output xamjake.apk to distribute): zipalign -f -v 5 com.sample.xamarinjakebuild.apk xamjake.apk
+
 });
 
 
@@ -81,7 +101,6 @@ task('ibs_iphone', ['create_new'], function (params) {
   var cmd =  config.xbuild + ' ' + config.iPhoneProject + ' /p:Configuration=Release /p:Platform=iPhone /p:BuildIpa=true';
   process.shellSync(cmd);
   process.shellSync('cp ' + config.iPhoneProjectBuildPath + '*.ipa ' + config.outputPath);
-  
   
 }, {async:false});
   
