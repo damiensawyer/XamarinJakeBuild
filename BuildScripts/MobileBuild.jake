@@ -16,8 +16,19 @@ task('default', [], function (params) {
 
 // It was a PITA getting Jake to run syncronously. This seems to have done it.
 process.shellSync = function(cmd){
+  if( Object.prototype.toString.call(cmd) === '[object Array]' ) {
+      console.log('ARRAY!!!!!', cmd);
+      cmd.forEach(function(entry) {
+       var r = child_process.execSync(entry);
+       process.stdout.write(r);
+      });
+  }
+  else{
+    console.log('executing: ', cmd);
     var r = child_process.execSync(cmd);
     process.stdout.write(r);
+  }
+
 }
 
 desc('Any prerequisites for preparation');
@@ -37,6 +48,7 @@ task('prepare', [], function (params) {
   result.outputPath = '~/jakeBuildOutput/'; 
   result.apkPresigned = 'com.sample.xamarinjakebuild.apk';
   result.apkPostsigned = 'xamarinjakebuild.apk';
+  result.droidPackageName ='com.sample.xamarinjakebuild';
   return result;
   //result.mdtool = '/Applications/Xamarin\\ Studio.app/Contents/MacOS/mdtool build';
 
@@ -79,10 +91,10 @@ task('deploy_android', ['create_new', 'ibs_android'], function (params) {
   // Android deploy instructions: http://stackoverflow.com/a/20878125/494635
   //var jarsign = 'jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ' + config.droidKeystore + ' ' + config.outputPath + config.apkPresigned + ' ' + config.droidKeyname;
   var jarsign = ['jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore', config.droidKeystore, config.outputPath + config.apkPresigned, config.droidKeyname, '-storepass ' + config.droidKeystoreStorePass].join(' ');
-     process.shellSync(jarsign);
-  
   var za = ['zipalign -f -v 4', config.outputPath + config.apkPresigned, config.outputPath + config.apkPostsigned].join(' ');
-  process.shellSync(za);
+  var remove = ['adb -d uninstall', config.droidPackageName].join(' ');
+  var add = ['adb -d install', config.outputPath + config.apkPostsigned].join(' '); 
+  process.shellSync([jarsign, za, remove, add]);
   
   //process.shellSync()
   
